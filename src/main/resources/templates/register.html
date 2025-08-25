@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head">
+<head th:replace="~{fragments/head :: head}">
   
 
 <body class="sub_page">
@@ -10,7 +10,7 @@
       <img src="images/hero-bg.jpg" alt="">
     </div>
     <!-- header section strats -->
-  <header th:replace="fragments/header :: header">
+  <header th:replace="~{fragments/header :: header}">
     <!-- end header section -->
   </div>
 
@@ -53,7 +53,7 @@
   <!-- end about section -->
 
   <!-- footer section -->
-  <footer th:replace="fragments/footer :: footer">
+  <footer th:replace="~{fragments/footer :: footer}">
   <!-- footer section -->
 
   

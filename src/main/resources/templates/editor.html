@@ -10,7 +10,7 @@
       <img src="images/hero-bg.jpg" alt="">
     </div>
     <!-- header section strats -->
-  <header th:replace="~{fragments/header :: header}">
+  <header th:replace="{fragments/header :: header}">
     <!-- end header section -->
   </div>
 
@@ -18,11 +18,7 @@
 
   <section class="about_section layout_padding">
     <div class="container  ">
-      <div class="posts" th:each="post : ${posts}">
-            <h3 th:text="${post.title}">Title</h3>
-            <p th:text="${post.body}">body</p>
-            <hr/>
-        </div>
+        Editor...
     </div>
   </section>
 

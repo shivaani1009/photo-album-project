@@ -1,14 +1,15 @@
-package org.studyeasy.SpringStarter.config;
+package org.studyeasy.SpringStarter.Security;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.studyeasy.SpringStarter.util.constants.Privileges;
 
 @EnableWebSecurity
-@EnableGlobalAuthentication
+@Configuration
 public class WebSecurityConfig {
     private static final String[] WHITELIST = {
         "/",
@@ -19,10 +20,10 @@ public class WebSecurityConfig {
         "/fonts/**",
         "/images/**",
         "/css/**"
-    };
+    }; //list of url patterns that should be public
 
 @Bean
-public static BCryptPasswordEncoder PasswordEncoder(){
+public BCryptPasswordEncoder PasswordEncoder(){
     return new BCryptPasswordEncoder();
 }
 
@@ -30,7 +31,17 @@ public static BCryptPasswordEncoder PasswordEncoder(){
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
     http.authorizeHttpRequests(auth -> auth
         .requestMatchers(WHITELIST).permitAll()
-        .anyRequest().authenticated())
+        .requestMatchers("/profile/**").authenticated()
+        .requestMatchers("/admin/**").hasRole("ADMIN")
+        .requestMatchers("/editor/**").hasAnyRole("ADMIN","EDITOR")
+        .requestMatchers("/test").hasAuthority(Privileges.ACCESS_ADMIN_PANEL.getPrivilege())
+        )
+        .csrf(csrf -> csrf
+        .ignoringRequestMatchers("/db-console/**")       // H2 console does POSTs
+        )
+        .headers(headers -> headers
+            .frameOptions(frame -> frame.sameOrigin())       // H2 uses frames
+        )
 
         .formLogin(form -> form
         .loginPage("/login")                 // GET /login returns your page
@@ -44,7 +55,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
       .logout(logout -> logout
         .logoutUrl("/logout")                // default method is POST
-        .logoutSuccessUrl("/logout?success")
+        .logoutSuccessUrl("/")
         .permitAll()
       );
 
