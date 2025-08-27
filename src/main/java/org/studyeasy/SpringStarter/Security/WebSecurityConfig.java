@@ -31,6 +31,8 @@ public BCryptPasswordEncoder PasswordEncoder(){
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
     http.authorizeHttpRequests(auth -> auth
         .requestMatchers(WHITELIST).permitAll()
+        .requestMatchers("/post/**").permitAll()
+        .requestMatchers("/js/**", "/css/**", "/images/**").permitAll()
         .requestMatchers("/profile/**").authenticated()
         .requestMatchers("/admin/**").hasRole("ADMIN")
         .requestMatchers("/editor/**").hasAnyRole("ADMIN","EDITOR")

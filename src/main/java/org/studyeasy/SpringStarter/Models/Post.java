@@ -21,11 +21,15 @@ public class Post{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
     private String title;
+    
     @Column(columnDefinition = "TEXT") //to store long texts
     private String body;
 
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
 
     @ManyToOne
     @JoinColumn(name="account_id", referencedColumnName = "id", nullable = true)

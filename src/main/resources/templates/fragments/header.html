@@ -29,13 +29,13 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 <a class="nav-link" th:href="@{/profile}">Profile</a>
               </li>
               <li sec:authorize="isAuthenticated()" class="nav-item">
+                <a class="nav-link" th:href="@{/post/add}">Add Post</a>
+              </li>
+              <li sec:authorize="isAuthenticated()" class="nav-item">
                 <a class="nav-link" th:href="@{/logout}">Logout</a>
               </li>
-              <li sec:authorize="${hasRole('ADMIN')} or ${hasAuthority('ACCESS_ADMIN_PANEL')}" class="nav-item">
+              <li sec:authorize="${hasAuthority('ACCESS_ADMIN_PANEL')}" class="nav-item">
                   <a class="nav-link" th:href="@{/admin}">Admin</a>
-              </li>
-                <li sec:authorize="${hasAnyRole('ADMIN','EDITOR')}" class="nav-item">
-                <a class="nav-link" th:href="@{/editor}">Editor</a>
               </li>
               </ul>
           </div>
