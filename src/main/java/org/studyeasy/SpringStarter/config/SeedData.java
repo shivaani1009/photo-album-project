@@ -75,9 +75,9 @@ public class SeedData implements CommandLineRunner{
         account04.setFirstName("user02");
         account04.setLastName("lastname");
         account04.setRole(Roles.EDITOR.getRole());
-        account01.setAge(45);
-        account01.setDate_of_birth(LocalDate.parse("1980-01-01"));
-        account01.setGender("Female");
+        account04.setAge(45);
+        account04.setDate_of_birth(LocalDate.parse("1980-01-01"));
+        account04.setGender("Female");
         Set<Authority> authorities = new HashSet<>();
         authorityService.findById(Privileges.RESET_ANY_USER_PASSWORD.getId()).ifPresent(authorities::add);
         authorityService.findById(Privileges.ACCESS_ADMIN_PANEL.getId()).ifPresent(authorities::add);
