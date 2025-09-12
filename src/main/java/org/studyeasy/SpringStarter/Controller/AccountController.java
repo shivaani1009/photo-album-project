@@ -36,6 +36,6 @@ public class AccountController {
 
     @GetMapping("/login")
     public String login(Model model){ //to send data to view
-        return "login";
+        return "account_views/login";
     }
 }
