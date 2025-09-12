@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -21,6 +22,9 @@ import org.studyeasy.SpringStarter.util.constants.Roles;
 @Service 
 public class AccountService implements UserDetailsService{
 
+    @Value("/resources/static/**")
+    private String photo_prefix;
+
     @Autowired
     private AccountRepository accountRepository;
 
@@ -36,6 +40,10 @@ public class AccountService implements UserDetailsService{
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         if(account.getRole()==null){
             account.setRole(Roles.USER.getRole());
+        }
+        if(account.getPhoto()==null){
+            String path = photo_prefix.replace("**","images/client1.png");
+            account.setPhoto("");
         }
         return accountRepository.save(account);
     }

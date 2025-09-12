@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,10 +22,11 @@ public class Post{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
+    @NotBlank(message="Missing Post title")
     private String title;
     
     @Column(columnDefinition = "TEXT") //to store long texts
+    @NotBlank(message="Missing Post body")
     private String body;
 
     private LocalDateTime createdAt;

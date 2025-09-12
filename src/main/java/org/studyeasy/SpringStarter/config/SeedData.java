@@ -12,6 +12,7 @@ import org.studyeasy.SpringStarter.Services.PostService;
 import org.studyeasy.SpringStarter.util.constants.Privileges;
 import org.studyeasy.SpringStarter.util.constants.Roles;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,24 +48,36 @@ public class SeedData implements CommandLineRunner{
         account01.setPassword("password");
         account01.setFirstName("user01");
         account01.setLastName("lastname");
+        account01.setAge(35);
+        account01.setDate_of_birth(LocalDate.parse("1990-01-01"));
+        account01.setGender("Male");
 
         account02.setEmail("account02@email.com");
         account02.setPassword("password");
         account02.setFirstName("user02");
         account02.setLastName("lastname");
         account02.setRole(Roles.ADMIN.getRole());
+        account02.setAge(35);
+        account02.setDate_of_birth(LocalDate.parse("1990-01-01"));
+        account02.setGender("Female");
 
         account03.setEmail("account03@email.com");
         account03.setPassword("password");
         account03.setFirstName("user03");
         account03.setLastName("lastname");
         account03.setRole(Roles.EDITOR.getRole());
+        account03.setAge(50);
+        account03.setDate_of_birth(LocalDate.parse("1975-01-01"));
+        account03.setGender("Male");
 
         account04.setEmail("account04@email.com");
         account04.setPassword("password");
         account04.setFirstName("user02");
         account04.setLastName("lastname");
         account04.setRole(Roles.EDITOR.getRole());
+        account01.setAge(45);
+        account01.setDate_of_birth(LocalDate.parse("1980-01-01"));
+        account01.setGender("Female");
         Set<Authority> authorities = new HashSet<>();
         authorityService.findById(Privileges.RESET_ANY_USER_PASSWORD.getId()).ifPresent(authorities::add);
         authorityService.findById(Privileges.ACCESS_ADMIN_PANEL.getId()).ifPresent(authorities::add);
